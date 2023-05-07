@@ -38,7 +38,7 @@ func (j *jwtS) CreateJWTToken(id uint, name string) (string, error) {
 	claims := jwt.MapClaims{
 		"id":   id,
 		"name": name,
-		"exp":  time.Now().Add(time.Minute * 1).Unix(),
+		"exp":  time.Now().Add(time.Minute * 5).Unix(),
 		"iss":  j.issuer,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

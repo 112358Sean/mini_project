@@ -4,7 +4,7 @@ services:
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_DATABASE: miniproject_crud
+      MYSQL_DATABASE: miniproject
     container_name: miniproject_db
     ports:
       - "3307:3306"

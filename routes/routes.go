@@ -74,5 +74,8 @@ func New() *echo.Echo {
 
 	e.POST("/login", userC.LoginController)
 
+	auth.GET("/users/:id_user/carts", cartC.GetCartByUserController)
+	auth.GET("/users/:id_user/checkout", cartC.GetTotalPrice)
+
 	return e
 }

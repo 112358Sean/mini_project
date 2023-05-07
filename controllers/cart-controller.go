@@ -16,6 +16,8 @@ type CartController interface {
 	CreateController(c echo.Context) error
 	UpdateController(c echo.Context) error
 	DeleteController(c echo.Context) error
+	GetCartByUserController(c echo. Context) error
+	GetTotalPrice(c echo. Context) error
 }
 
 type cartController struct {
@@ -166,6 +168,59 @@ func (a *cartController) DeleteController(c echo.Context) error {
 	return h.Response(c, http.StatusOK, h.ResponseModel{
 		Data:    nil,
 		Message: "Delete Cart success",
+		Status:  true,
+	})
+}
+
+func (a *cartController) GetCartByUserController(c echo.Context) error {
+    id_user := c.Param("id_user")
+    err := h.IsNumber(id_user)
+    if err != nil {
+        return h.Response(c, http.StatusBadRequest, h.ResponseModel{
+            Data:    nil,
+            Message: err.Error(),
+            Status:  false,
+        })
+    }
+    carts, err := a.CartS.GetCartByUserService(id_user)
+    if err != nil {
+        return h.Response(c, http.StatusNotFound, h.ResponseModel{
+            Data:    nil,
+            Message: err.Error(),
+            Status:  false,
+        })
+    }
+    return h.Response(c, http.StatusOK, h.ResponseModel{
+        Data:    carts,
+        Message: "Get Cart By User success",
+        Status:  true,
+    })
+}
+
+func (a *cartController) GetTotalPrice(c echo.Context) error {
+	id_user := c.Param("id_user")
+
+	err := h.IsNumber(id_user)
+	if err != nil {
+		return h.Response(c, http.StatusBadRequest, h.ResponseModel{
+			Data:    nil,
+			Message: err.Error(),
+			Status:  false,
+		})
+	}
+
+	totalPrice, err := a.CartS.GetTotalPrice(id_user)
+	if err != nil {
+		return h.Response(c, http.StatusNotFound, h.ResponseModel{
+			Data:    nil,
+			Message: err.Error(),
+			Status:  false,
+		})
+	}
+
+	return h.Response(c, http.StatusOK, h.ResponseModel{
+		Data:    totalPrice,
+		Message: "Get Total Price success",
 		Status:  true,
 	})
 }
