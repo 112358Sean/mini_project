@@ -12,7 +12,6 @@ type CartService interface {
 	UpdateService(id string, CartBody models.Cart) (*models.Cart, error)
 	DeleteService(id string) error
 	GetCartByUserService(id string) ([]*models.Cart, error)
-	GetTotalPrice(id_user string) (float64, error)
 }
 
 type cartService struct {
@@ -76,13 +75,4 @@ func (a *cartService) GetCartByUserService(id_user string) ([]*models.Cart, erro
         return nil, err
     }
     return Carts, nil
-}
-
-func (a *cartService) GetTotalPrice(id_user string) (float64, error) {
-	totalPrice, err := a.CartR.GetTotalPrice(id_user)
-	if err != nil {
-		return 0, err
-	}
-
-	return totalPrice, nil
 }

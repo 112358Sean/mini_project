@@ -13,7 +13,6 @@ type CartRepository interface {
 	UpdateRepository(id string, CartBody models.Cart) (*models.Cart, error)
 	DeleteRepository(id string) error
 	GetCartByUserRepository(id_user string) ([]*models.Cart, error)
-	GetTotalPrice(id_user string) (float64, error)
 }
 
 type cartRepository struct {
@@ -92,22 +91,4 @@ func (a *cartRepository) GetCartByUserRepository(id_user string) ([]*models.Cart
         return nil, err
     }
     return Carts, nil
-}
-
-func (a *cartRepository) GetTotalPrice(id_user string) (float64, error) {
-	var totalPrice float64
-
-	row := a.DB.
-		Table("books").
-		Select("SUM(books.harga * carts.jumlah) as totalPrice").
-		Joins("JOIN carts ON carts.id_buku = books.id").
-		Where("carts.id_user = ?", id_user).
-		Row()
-
-	err := row.Scan(&totalPrice)
-	if err != nil {
-		return 0, err
-	}
-
-	return totalPrice, nil
 }

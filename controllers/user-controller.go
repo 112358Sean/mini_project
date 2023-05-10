@@ -42,6 +42,10 @@ func (u *userController) GetUsersController(c echo.Context) error {
 		})
 	}
 
+	for _,user := range users {
+		user.Password = "-"
+	}
+
 	return h.Response(c, http.StatusOK, h.ResponseModel{
 		Data:    users,
 		Message: "Get all users success",
@@ -71,6 +75,8 @@ func (u *userController) GetUserController(c echo.Context) error {
 			Status:  false,
 		})
 	}
+
+	user.Password = "-"
 
 	return h.Response(c, http.StatusOK, h.ResponseModel{
 		Data:    user,
@@ -108,6 +114,8 @@ func (u *userController) CreateController(c echo.Context) error {
 			Status:  false,
 		})
 	}
+
+	user.User.Password = "-"
 
 	user.Token = token
 	return h.Response(c, http.StatusOK, h.ResponseModel{
@@ -148,6 +156,8 @@ func (u *userController) UpdateController(c echo.Context) error {
 			Status:  false,
 		})
 	}
+
+	user.Password = "-"
 
 	return h.Response(c, http.StatusOK, h.ResponseModel{
 		Data:    user,
@@ -213,6 +223,8 @@ func (u *userController) LoginController(c echo.Context) error {
 			Status:  false,
 		})
 	}
+
+	user.User.Password = "-"
 
 	user.Token = token
 	return h.Response(c, http.StatusOK, h.ResponseModel{

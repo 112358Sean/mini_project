@@ -34,6 +34,10 @@ var (
 	transactionR = r.NewTransactionRepository(DB)
 	transactionS = s.NewTransactionService(transactionR)
 	transactionC = c.NewTransactionController(transactionS)
+
+	paymentR = r.NewPaymentRepository(DB)
+	paymentS = s.NewPaymentService(paymentR)
+	paymentC = c.NewPaymentController(paymentS)
 )
 
 func New() *echo.Echo {
@@ -72,10 +76,15 @@ func New() *echo.Echo {
 	auth.DELETE("/transactions/:id", transactionC.DeleteController)
 	auth.PUT("/transactions/:id", transactionC.UpdateController)
 
+	auth.GET("/payments", paymentC.GetPaymentsController)
+	auth.GET("/payments/:id", paymentC.GetPaymentController)
+	auth.DELETE("/payments/:id", paymentC.DeleteController)
+
 	e.POST("/login", userC.LoginController)
 
 	auth.GET("/users/:id_user/carts", cartC.GetCartByUserController)
-	auth.GET("/users/:id_user/checkout", cartC.GetTotalPrice)
+	auth.POST("/users/:id_user/checkout", paymentC.CheckOut)
+	auth.PUT("/payments/:id_user", paymentC.UpdateController)
 
 	return e
 }

@@ -59,7 +59,7 @@ func (u *userRepository) UpdateRepository(id string, userBody models.User) (*mod
 		return nil, err
 	}
 
-	err = u.DB.Where("ID = ?", id).Updates(models.User{Nama: userBody.Nama, Email: userBody.Email, Password: userBody.Password}).Error
+	err = u.DB.Where("ID = ?", id).Updates(models.User{Nama: userBody.Nama, Email: userBody.Email, Password: userBody.Password, Alamat: userBody.Alamat, Role: userBody.Role}).Error
 	if err != nil {
 		return nil, err
 	}
@@ -67,6 +67,7 @@ func (u *userRepository) UpdateRepository(id string, userBody models.User) (*mod
 	user.Nama = userBody.Nama
 	user.Email = userBody.Email
 	user.Password = userBody.Password
+	user.Alamat = userBody.Alamat
 	user.Role = userBody.Role
 
 	return user, nil
