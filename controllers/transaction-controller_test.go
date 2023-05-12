@@ -27,10 +27,12 @@ var (
 func TestGetTransactionsController_Success(t *testing.T) {
 	transactions := []*models.Transaction{
 		{
+			ID_Transaksi: "1",
 			ID_Keranjang: "1",
 			Status: "pending",
 		},
 		{
+			ID_Transaksi: "1",
 			ID_Keranjang: "1",
 			Status: "pending",
 		},
@@ -73,6 +75,7 @@ func TestGetTransactionController_Success(t *testing.T) {
 		Model: gorm.Model{
 			ID: 2,
 		},
+		ID_Transaksi: "1",
 		ID_Keranjang: "1",
 		Status: "pending",
 	}
@@ -229,6 +232,7 @@ func TestUpdateTransactionController_Failure1(t *testing.T) {
 		Model: gorm.Model{
 			ID: 1,
 		},
+		ID_Transaksi: "1",
 		ID_Keranjang: "1",
 		Status: "pending",
 	}
@@ -288,6 +292,7 @@ func TestUpdateTransactionController_Failure3(t *testing.T) {
 		Model: gorm.Model{
 			ID: 1,
 		},
+		ID_Transaksi: "1",
 		ID_Keranjang: "1",
 		Status: "pending",
 	}
