@@ -58,12 +58,11 @@ func (t *transactionRepository) UpdateRepository(id string, TransactionBody mode
 		return nil, err
 	}
 
-	err = t.DB.Where("ID = ?", id).Updates(models.Transaction{ID_Transaksi: TransactionBody.ID_Transaksi, ID_Keranjang: TransactionBody.ID_Keranjang, Status: TransactionBody.Status}).Error
+	err = t.DB.Where("ID = ?", id).Updates(models.Transaction{ID_Keranjang: TransactionBody.ID_Keranjang, Status: TransactionBody.Status}).Error
 	if err != nil {
 		return nil, err
 	}
 
-	Transaction.ID_Transaksi = TransactionBody.ID_Transaksi
 	Transaction.ID_Keranjang = TransactionBody.ID_Keranjang
 	Transaction.Status = TransactionBody.Status
 
