@@ -188,6 +188,7 @@ func (p *paymentController) CheckOut(c echo.Context) error {
 
 	fmt.Println(err)
 
+	PaymentR.ID_Transaksi = Payment.ID_Transaksi
 	PaymentR.Bukti_Pembayaran = "-"
 	PaymentR.Status = "Belum Terbayar"
 
