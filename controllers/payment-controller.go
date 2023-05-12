@@ -138,7 +138,11 @@ func (p *paymentController) UpdateController(c echo.Context) error {
 	}
 
 	return h.Response(c, http.StatusOK, h.ResponseModel{
-		Data:    Payment,
+		Data: map[string]interface{}{
+			"Payment":    Payment,
+			"Ongkos Kirim": 10000,
+			"Total Pembayaran" : Payment.Total_Price + 10000,
+		},
 		Message: "Payment success",
 		Status:  true,
 	})
@@ -195,6 +199,8 @@ func (p *paymentController) CheckOut(c echo.Context) error {
 	return h.Response(c, http.StatusOK, h.ResponseModel{
 		Data: map[string]interface{}{
 			"Payment":    PaymentR,
+			"Ongkos Kirim": 10000,
+			"Total Pembayaran" : PaymentR.Total_Price + 10000,
 		},
 		Message: "Create Payment and CheckOut success",
 		Status:  true,
