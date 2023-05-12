@@ -139,7 +139,7 @@ func (p *paymentController) UpdateController(c echo.Context) error {
 
 	return h.Response(c, http.StatusOK, h.ResponseModel{
 		Data:    Payment,
-		Message: "Update Payment success",
+		Message: "Payment success",
 		Status:  true,
 	})
 }

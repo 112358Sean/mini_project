@@ -59,12 +59,11 @@ func (p *paymentRepository) UpdateRepository(id string, PaymentBody models.Payme
 		return nil, err
 	}
 
-	err = p.DB.Where("ID = ?", id).Updates(models.Payment{ID_Transaksi: PaymentBody.ID_Transaksi, Bukti_Pembayaran: PaymentBody.Bukti_Pembayaran}).Error
+	err = p.DB.Where("ID = ?", id).Updates(models.Payment{Bukti_Pembayaran: PaymentBody.Bukti_Pembayaran}).Error
 	if err != nil {
 		return nil, err
 	}
 
-	Payment.ID_Transaksi = PaymentBody.ID_Transaksi
 	Payment.Bukti_Pembayaran = PaymentBody.Bukti_Pembayaran
 	Payment.Status = "Terbayar"
 
